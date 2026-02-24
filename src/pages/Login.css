@@ -1,0 +1,106 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* CONTENEDOR A PANTALLA COMPLETA */
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e1e2d 0%, #2f2f40 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TARJETA CENTRAL */
+.login-card {
+  width: 380px;
+  background: white;
+  padding: 40px 32px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e1e2d;
+  margin-bottom: 5px;
+}
+
+.login-subtitle {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.login-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 6px;
+  margin-top: 12px;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+/* Wrapper para el campo contraseña */
+.password-wrapper {
+  position: relative;
+}
+
+/* Botón Mostrar/Ocultar */
+.show-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #1e1e2d;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Botón principal */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1e1e2d;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #111121;
+}
+
+/* Error */
+.login-error {
+  background: #ffe0e0;
+  color: #b30000;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
