@@ -1,6 +1,9 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
+// URL BASE DEL BACKEND DESDE VARIABLES DE ENTORNO
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function UserForm({ onUserCreated }) {
   const { token } = useContext(AuthContext);
 
@@ -9,46 +12,51 @@ export default function UserForm({ onUserCreated }) {
   const [area, setArea] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rol, setRol] = useState("");   // <-- vacío por defecto
+  const [rol, setRol] = useState(""); // vacío por defecto
 
   const [mensaje, setMensaje] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:4000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        nombre,
-        identificacion,
-        area,
-        email,
-        password,
-        rol
-      })
-    });
+    try {
+      const res = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          nombre,
+          identificacion,
+          area,
+          email,
+          password,
+          rol,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      setMensaje({ tipo: "error", texto: data.msg });
-      return;
+      if (!res.ok) {
+        setMensaje({ tipo: "error", texto: data.msg });
+        return;
+      }
+
+      setMensaje({ tipo: "ok", texto: "Usuario creado correctamente" });
+
+      // limpiar formulario
+      setNombre("");
+      setIdentificacion("");
+      setArea("");
+      setEmail("");
+      setPassword("");
+      setRol("");
+
+      if (onUserCreated) onUserCreated();
+    } catch (error) {
+      setMensaje({ tipo: "error", texto: "Error al conectar con el servidor" });
     }
-
-    setMensaje({ tipo: "ok", texto: "Usuario creado correctamente" });
-
-    setNombre("");
-    setIdentificacion("");
-    setArea("");
-    setEmail("");
-    setPassword("");
-    setRol("");
-
-    if (onUserCreated) onUserCreated();
   };
 
   return (
@@ -136,7 +144,7 @@ export default function UserForm({ onUserCreated }) {
 const input = {
   width: "100%",
   marginBottom: "10px",
-  padding: "10px"
+  padding: "10px",
 };
 
 const btn = {
@@ -144,5 +152,5 @@ const btn = {
   padding: "10px",
   background: "#1e1e2d",
   color: "white",
-  cursor: "pointer"
+  cursor: "pointer",
 };

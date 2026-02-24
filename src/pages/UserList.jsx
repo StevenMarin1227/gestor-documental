@@ -1,6 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import UserForm from "../components/UserForm";
+
+// Importamos la URL base del backend
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function UserList() {
   const { token } = useContext(AuthContext);
@@ -8,15 +10,26 @@ export default function UserList() {
   const [cargando, setCargando] = useState(true);
 
   const cargarUsuarios = async () => {
-    const res = await fetch("http://localhost:4000/api/auth/users", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    try {
+      const res = await fetch(`${API_URL}/auth/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const data = await res.json();
-    setUsuarios(data);
-    setCargando(false);
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Error cargando usuarios:", data);
+        return;
+      }
+
+      setUsuarios(data);
+      setCargando(false);
+
+    } catch (error) {
+      console.error("Error de conexión:", error);
+    }
   };
 
   useEffect(() => {
@@ -62,10 +75,10 @@ export default function UserList() {
 
 const th = {
   padding: "10px",
-  border: "1px solid #ddd"
+  border: "1px solid #ddd",
 };
 
 const td = {
   padding: "10px",
-  border: "1px solid #ddd"
+  border: "1px solid #ddd",
 };
