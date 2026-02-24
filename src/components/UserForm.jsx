@@ -12,7 +12,7 @@ export default function UserForm({ onUserCreated }) {
   const [area, setArea] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rol, setRol] = useState(""); // vacío por defecto
+  const [rol, setRol] = useState("");
 
   const [mensaje, setMensaje] = useState(null);
 
@@ -45,7 +45,6 @@ export default function UserForm({ onUserCreated }) {
 
       setMensaje({ tipo: "ok", texto: "Usuario creado correctamente" });
 
-      // limpiar formulario
       setNombre("");
       setIdentificacion("");
       setArea("");
