@@ -13,11 +13,11 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* RUTAS QUE NO USAN LAYOUT */}
+        {/* 🔓 RUTAS QUE NO USAN LAYOUT */}
         <Route path="/login" element={<Login />} />
         <Route path="/no-autorizado" element={<NoAutorizado />} />
 
-        {/* RUTAS QUE SÍ USAN LAYOUT */}
+        {/* 🔒 RUTAS PROTEGIDAS QUE USAN LAYOUT */}
         <Route element={<MainLayout />}>
 
           {/* TODOS LOS USUARIOS AUTENTICADOS */}
@@ -33,6 +33,9 @@ function App() {
           </Route>
 
         </Route>
+
+        {/* RUTA COMODÍN PARA EVITAR PANTALLAS NEGRAS */}
+        <Route path="*" element={<NoAutorizado />} />
 
       </Routes>
     </BrowserRouter>
